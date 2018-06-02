@@ -1,3 +1,4 @@
+#!/usr/bin/php -q
 <?php 
 	$DOCKER_IMAGE_STATIC_SHARED="static_shared";
 	$DOCKER_IMAGE_EXPRESS="express";
@@ -18,7 +19,7 @@
 	$array_dynamic_ip = array();
 	foreach ($tab as $name) {
 		if(strlen($name) > 1){
-			$static_ip = exec("docker inspect " . $name . " | grep IPAddress | cut -d \":\" -f2 | cut -d \"\"\" -f2");
+			$static_ip = exec("docker inspect " . $name . " | grep IPAddress | cut -d ':' -f2 | cut -d '\' -f2 | cut -d '\"' -f2");
 			$array_static_ip[] = $static_ip;
 		}
 	}
@@ -29,7 +30,7 @@
 
 	foreach ($tab as $name) {
 		if(strlen($name)>1){
-			$dynamic_ip = exec("docker inspect " . $name . " | grep IPAddress | cut -d \":\" -f2 | cut -d \"\"\" -f2");
+			$dynamic_ip = exec("docker inspect " . $name . " | grep IPAddress | cut -d ':' -f2 | cut -d '\' -f2 | cut -d '\"' -f2");
 			$array_dynamic_ip[] = $dynamic_ip;
 		}
 	}
@@ -47,6 +48,6 @@
 	}
 	echo "$argument";
 
-	exec("docker run -d -p 8080:80 " . $argument . " reverse-proxy");
+	exec("docker run -d -p 8080:80 " . $argument . " reverse-proxy-balancer");
 
 ?>
