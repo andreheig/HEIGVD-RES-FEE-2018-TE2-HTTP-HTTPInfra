@@ -5,14 +5,14 @@
 	$DOCKER_IMAGE_EXPRESS="express:test";
 	$DOCKER_IMAGE_REVERSE_PROXY="reverse-proxy";
 
-	
+
 	$DOCKER_ARG_VARIABLE="-e";
 	$STATIC_APP="STATIC_APP";
 	$DYNAMIC_APP="DYNAMIC_APP";
 	$STATIC_APP_PORT=":80";
 	$DYNAMIC_APP_PORT=":3000";
 
-	echo "try to get ip address\n";
+	//echo "try to get ip address\n";
 
 	$static_app_name = shell_exec("docker ps -q -f ancestor=". $DOCKER_IMAGE_STATIC_SHARED);
 

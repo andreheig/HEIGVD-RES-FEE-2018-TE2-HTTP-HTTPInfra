@@ -10,7 +10,7 @@ echo "<Proxy balancer://static_app>" >> /etc/apache2/sites-available/001-reverse
 #echo "Require all granted" >> /etc/apache2/sites-available/001-reverse-proxy.conf
 echo "Order allow,deny" >> /etc/apache2/sites-available/001-reverse-proxy.conf
 echo "Allow from all" >> /etc/apache2/sites-available/001-reverse-proxy.conf
-echo "ProxySet lbmethod=byrequests" >> /etc/apache2/sites-available/001-reverse-proxy.conf
+echo "ProxySet lbmethod=byrequests stickysession=JSESSIONID|jsessionid" >> /etc/apache2/sites-available/001-reverse-proxy.conf
 echo "</Proxy>" >> /etc/apache2/sites-available/001-reverse-proxy.conf
 
 echo "<Proxy balancer://dynamic_app>" >> /etc/apache2/sites-available/001-reverse-proxy.conf
@@ -20,7 +20,7 @@ echo "<Proxy balancer://dynamic_app>" >> /etc/apache2/sites-available/001-revers
 #echo "Require all granted" >> /etc/apache2/sites-available/001-reverse-proxy.conf
 echo "Order allow,deny" >> /etc/apache2/sites-available/001-reverse-proxy.conf
 echo "Allow from all" >> /etc/apache2/sites-available/001-reverse-proxy.conf
-echo "ProxySet lbmethod=byrequests" >> /etc/apache2/sites-available/001-reverse-proxy.conf
+echo "ProxySet lbmethod=byrequests stickysession=JSESSIONID|jsessionid" >> /etc/apache2/sites-available/001-reverse-proxy.conf
 echo "</Proxy>" >> /etc/apache2/sites-available/001-reverse-proxy.conf
 
 echo "<Location /balancer-manager>" >> /etc/apache2/sites-available/001-reverse-proxy.conf
