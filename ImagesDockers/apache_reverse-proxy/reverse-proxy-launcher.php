@@ -1,8 +1,11 @@
 #!/usr/bin/php -q
 <?php 
-	$DOCKER_IMAGE_STATIC_SHARED="static_shared";
-	$DOCKER_IMAGE_EXPRESS="express";
+// Nom des images à rechercher!!!
+	$DOCKER_IMAGE_STATIC_SHARED="static";
+	$DOCKER_IMAGE_EXPRESS="express:test";
 	$DOCKER_IMAGE_REVERSE_PROXY="reverse-proxy";
+
+	
 	$DOCKER_ARG_VARIABLE="-e";
 	$STATIC_APP="STATIC_APP";
 	$DYNAMIC_APP="DYNAMIC_APP";
@@ -35,7 +38,6 @@
 		}
 	}
 	$index = 0;
-	#$argument = "";
 	foreach($array_static_ip as $name){
 			#echo "$name\n";
 			$argument = $argument . "" . $DOCKER_ARG_VARIABLE . " " . $STATIC_APP . "" . $index . "=" . $name . "" . $STATIC_APP_PORT . " ";
@@ -46,7 +48,7 @@
 			$argument = $argument . "" . $DOCKER_ARG_VARIABLE . " " . $DYNAMIC_APP . "" . $index . "=" . $name . "" . $DYNAMIC_APP_PORT . " ";
 			$index++;
 	}
-	echo "$argument";
+	//echo "$argument";
 
 	exec("docker run -d -p 8080:80 " . $argument . " reverse-proxy-balancer");
 

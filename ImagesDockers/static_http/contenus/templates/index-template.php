@@ -1,6 +1,5 @@
 <?php 
   $ip_address = shell_exec("ifconfig | grep inet | head -n 1 | tr -s ' ' | cut -d ' ' -f3");
-  echo $ip_address
 ?>
 
 <!DOCTYPE html>
@@ -55,7 +54,11 @@
         </div>
       </div>
     </nav>
-
+<section class="ip_adresse">
+      <div class="col-lg-4 ml-auto text-center">
+        <p><?php print "$ip_address" ?></p>
+      </div>
+    </section>
     <header class="masthead text-center text-white d-flex">
       <div class="container my-auto">
         <div class="row">
