@@ -1,9 +1,9 @@
 #!/usr/bin/php -q
 <?php 
 // Nom des images à rechercher!!!
-	$DOCKER_IMAGE_STATIC_SHARED="static";
-	$DOCKER_IMAGE_EXPRESS="express:test";
-	$DOCKER_IMAGE_REVERSE_PROXY="reverse-proxy";
+	$DOCKER_IMAGE_STATIC_SHARED="static:etape6";
+	$DOCKER_IMAGE_EXPRESS="express:etape6";
+	$DOCKER_IMAGE_REVERSE_PROXY="reverse-proxy-bal-request:etape6";
 
 	
 	$DOCKER_ARG_VARIABLE="-e";
@@ -50,6 +50,6 @@
 	}
 	//echo "$argument";
 
-	exec("docker run -d -p 8080:80 " . $argument . " reverse-proxy-balancer");
+	exec("docker run -d -p 8080:80 " . $argument . " " . $DOCKER_IMAGE_REVERSE_PROXY);
 
 ?>
