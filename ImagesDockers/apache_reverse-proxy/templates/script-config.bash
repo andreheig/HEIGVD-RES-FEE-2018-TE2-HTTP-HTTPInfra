@@ -3,6 +3,7 @@ STATIC="STATIC"
 DYNAMIC="DYNAMIC"
 echo "<VirtualHost *:80>" > /etc/apache2/sites-available/001-reverse-proxy.conf
 echo "ServerName www.reverse-proxy.res.ch" >> /etc/apache2/sites-available/001-reverse-proxy.conf
+echo "Header add Set-Cookie \"ROUTEID=.%{BALANCER_WORKER_ROUTE}e; path=/\" env=BALANCER_ROUTE_CHANGED" >> /etc/apache2/sites-available/001-reverse-proxy.conf
 echo "<Proxy balancer://static_app>" >> /etc/apache2/sites-available/001-reverse-proxy.conf
 
         php  /var/apache2/templates/set-balancer.php STATIC
@@ -10,9 +11,10 @@ echo "<Proxy balancer://static_app>" >> /etc/apache2/sites-available/001-reverse
 #echo "Require all granted" >> /etc/apache2/sites-available/001-reverse-proxy.conf
 echo "Order allow,deny" >> /etc/apache2/sites-available/001-reverse-proxy.conf
 echo "Allow from all" >> /etc/apache2/sites-available/001-reverse-proxy.conf
-echo "ProxySet lbmethod=byrequests stickysession=JSESSIONID|jsessionid" >> /etc/apache2/sites-available/001-reverse-proxy.conf
+echo "ProxySet lbmethod=byrequests stickysession=ROUTEID" >> /etc/apache2/sites-available/001-reverse-proxy.conf
 echo "</Proxy>" >> /etc/apache2/sites-available/001-reverse-proxy.conf
 
+echo "Header add Set-Cookie \"ROUTEID=.%{BALANCER_WORKER_ROUTE}e; path=/\" env=BALANCER_ROUTE_CHANGED" >> /etc/apache2/sites-available/001-reverse-proxy.conf
 echo "<Proxy balancer://dynamic_app>" >> /etc/apache2/sites-available/001-reverse-proxy.conf
 
         php /var/apache2/templates/set-balancer.php DYNAMIC
@@ -20,7 +22,7 @@ echo "<Proxy balancer://dynamic_app>" >> /etc/apache2/sites-available/001-revers
 #echo "Require all granted" >> /etc/apache2/sites-available/001-reverse-proxy.conf
 echo "Order allow,deny" >> /etc/apache2/sites-available/001-reverse-proxy.conf
 echo "Allow from all" >> /etc/apache2/sites-available/001-reverse-proxy.conf
-echo "ProxySet lbmethod=byrequests stickysession=JSESSIONID|jsessionid" >> /etc/apache2/sites-available/001-reverse-proxy.conf
+echo "ProxySet lbmethod=byrequests stickysession=ROUTEID" >> /etc/apache2/sites-available/001-reverse-proxy.conf
 echo "</Proxy>" >> /etc/apache2/sites-available/001-reverse-proxy.conf
 
 echo "<Location /balancer-manager>" >> /etc/apache2/sites-available/001-reverse-proxy.conf
